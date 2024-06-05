@@ -1,0 +1,16 @@
+{
+  "name": "express_js",
+  "version": "1.0.0",
+  "description": "My Express JS Application",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "Jane Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.1",
+    "mongoose": "^8.2.4"
+  }
+}
