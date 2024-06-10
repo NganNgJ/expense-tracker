@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 var bodyParser = require('body-parser')
 var router1 = require('./apiRouter.js')
-const AccountModel = require('./models/account')
+const UserModel = require('./models/user.js')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -12,10 +12,13 @@ app.use(bodyParser.json())
 app.post('/register', (req, res, next) => {
     var username = req.body.username
     var password = req.body.password
+    var email = req.body.email
     
-    AccountModel.create({
+    UserModel.create({
         username: username,
-        password: password
+        password: password,
+        email: email,
+        
     })
     .then(data=>{
         res.json('Successful register new account')
