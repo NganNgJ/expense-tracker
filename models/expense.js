@@ -1,16 +1,17 @@
-const mongoose =  require('mongoose ')
+const mongoose =  require('mongoose')
 
 const ExpenseSchema = new mongoose.Schema ({
     description: {type: String, required: false},
     amount: {type: Number, require: true},
-    date: {type: Date, default: Date.now},
+    expenseDate: {type: date, required: true, default: Date.now},
+    createDate: {type: Date, default: Date.now},
     user:{
         type: mongoose.Schema.Types.ObjectID,
         ref: 'User',
         require: true,
     },
-    catetgory: {
-        type: mongoose.Schema.Types.ObjectId,
+    category: {
+        type: mongoose.Schema.Types.ObjectID,
         ref: 'Category',
         required: true,
     },
