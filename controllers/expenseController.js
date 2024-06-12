@@ -28,12 +28,13 @@ exports.addExpense = async (req, res, next) => {
             amount,
             user: userId,
             category: categoryId,
-            expenseDate,
+            expenseDate: new Date(expenseDate),
         });
         const expense = await newExpense.save();
 
-        const populatedExpense = await expense.populate('user', 'username')
-                                         .populate('category', 'name');
+        const populatedExpense = await Expense.findById(expense._id)
+                                      .populate('user', 'username')
+                                      .populate('category', 'name');
         res.status(201).json(populatedExpense);
     } catch (err) {
         next(err);
@@ -55,17 +56,19 @@ exports.updateExpense = async (req, res, next) => {
   
       const updatedExpense = await Expense.findByIdAndUpdate(
         id,
-        { description, amount, user: userId, category: categoryId, expenseDate },
+        { description, amount, user: userId, category: categoryId, expenseDate: new Date(expenseDate) },
         { new: true }
-      )
-      .populate('user', 'username')
-      .populate('category', 'name');
-  
+      );
+
       if (!updatedExpense) {
         return res.status(404).json({ message: 'Expense not found' });
       }
+
+      const populatedExpense = await Expense.findById(updatedExpense._id)
+                                    .populate('user', 'username')
+                                    .populate('category', 'name');
   
-      res.status(200).json(updatedExpense);
+      res.status(200).json(populatedExpense);
     } catch (err) {
       next(err);
     }
