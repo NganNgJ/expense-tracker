@@ -26,10 +26,6 @@ app.listen(port, () => {
 
 
 
-
-
-
-
 // var router1 = require('./routers/apiRouter.js')
 // app.use('/api/', router1);
 // app.use('', router1);
