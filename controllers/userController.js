@@ -1,12 +1,34 @@
 const User = require('../models/user');
+const PAGE_SIZE = 2
 
 exports.getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (err) {
-    next(err);
-  }
+  
+    var page = req.query.page
+    if (page) {
+        page = parseInt(page)
+        if(page < 1){
+          page = 1
+        }
+        var skipNumber = (page-1) * PAGE_SIZE
+
+        User.find({})
+        .skip(skipNumber)
+        .limit(PAGE_SIZE)
+        .then(data=> {
+          res.json(data)
+        })
+        .catch(err=>{
+          res.status(500).json('Error')
+        })
+
+    } else {
+      try {
+        const users = await User.find();
+        res.status(200).json(users);
+      } catch (err) {
+        next(err);
+      }
+    } 
 };
 
 exports.getUserId = async (req, res, next) => {
