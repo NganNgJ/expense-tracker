@@ -15,8 +15,34 @@ const ExpenseSchema = new mongoose.Schema ({
         ref: 'Category',
         required: true,
     },
+    modifiedAt : Date
 }, {
     collection: 'expense'
 });
+
+  ExpenseSchema.pre('save', function(next) {
+    this.modifiedAt = Date.now();
+    next();
+  });
+  
+  ExpenseSchema.pre('findOneAndUpdate', function(next) {
+    this.set({ modifiedAt: Date.now() });
+    next();
+  });
+  
+  ExpenseSchema.pre('updateOne', function(next) {
+    this.set({ modifiedAt: Date.now() });
+    next();
+  });
+  
+  ExpenseSchema.pre('updateMany', function(next) {
+    this.set({ modifiedAt: Date.now() });
+    next();
+  });
+  
+  ExpenseSchema.pre('update', function(next) {
+    this.set({ modifiedAt: Date.now() });
+    next();
+  });
 
 module.exports = mongoose.model('Expense', ExpenseSchema)

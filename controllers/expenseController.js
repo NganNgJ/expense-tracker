@@ -30,7 +30,7 @@ exports.getExpenseId = async (req, res, next) => {
   }
 }
 
-
+//post new expense
 exports.addExpense = async (req, res, next) => {
     try {
         const {description, amount, userId, categoryId, expenseDate} = req.body;
@@ -58,7 +58,7 @@ exports.addExpense = async (req, res, next) => {
     }
 }
 
-
+//update expense
 exports.updateExpense = async (req, res, next) => {
     try {
       const { id } = req.params;
